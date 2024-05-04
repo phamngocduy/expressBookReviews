@@ -42,14 +42,5 @@ router.get('/review/:isbn', (req, res) => {
     const isbn = req.params.isbn
     res.send(books[isbn].reviews)
 })
-  
-  router.post("/register", (req,res) => {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
-});
 
-  
-
-
-
-module.exports.router = router;
+module.exports.router = router
