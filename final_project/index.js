@@ -8,7 +8,6 @@ app.use(express.urlencoded({extended: true}))
 
 app.use('/', require('./router/general.js').router)
 app.use('/customer', session({secret: 'phmngcduy', resave: true, saveUninitialized: true}))
-app.use('/customer', require('./router/auth_users.js').router)
 
 app.use('/customer/auth/*', (req, res, next) => {
     if (req.session.authorization) {
@@ -18,12 +17,13 @@ app.use('/customer/auth/*', (req, res, next) => {
                 req.user = user
                 next()
             }
-            else return res.status(403).json({MESSAGE: 'User not authenticated'})
+            else return res.status(403).json({message: 'User not authenticated'})
         })
     } else res.redirect('/customer/login.html')
-        //return res.status(403).json({MESSAGE: 'User not logged in'})
+        //return res.status(403).json({message: 'User not logged in'})
 })
 
+app.use('/customer', require('./router/auth_users.js').router)
 app.use('/customer', express.static('public'))
 
 const PORT = 5000
